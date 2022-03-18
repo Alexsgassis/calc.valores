@@ -9,28 +9,29 @@
 </head>
 
 <body>
-    <h1 id="title">CADASTRAR VALORES:</h1>
+    <h1 id="title">CALCULAR VALORES:</h1>
+        <form id="formulario">
+            <p class="paragrafos">Valor da Passagem</p>
+                <input class="box" id="n1" type="number" step="0.00">
+            <p class="paragrafos"> Roleta Inicial</p>
+                <input class="box" id="n2" type="number">
+            <p class="paragrafos">Roleta Final</p>
+                <input class="box" id="n3" type="number"> 
+            <p class="paragrafos">Quantidade de VT</p>
+                <input class="box" id="n4" type="number"> <br>
+            <input type="button"  class="botao" onclick="somar()" value="Somar">
 
-        <p class="paragrafos">Valor da Passagem</p>
-        <input class="box" id="n1" type="number" step="0.00">
+            <main class="result">  
+                <h3 class="paragrafos-resultado">RESULTADO:</h3>
+                <p class="paragrafos"> Quantidade de passageiros pela roleta: <input class="box" id="resultado" type="number" readonly></p> 
+                <p class="paragrafos"> Quantidade de pass. descontando VT: <input class="box" id="resultadoo" type="number" readonly></p> 
+                <p class="paragrafos"> Valor final de R$: <input class="box" id="resultadooo" type="number" readonly></p> 
+            </main> 
+            <input type="button" class="botao" onclick="limpar()" value="Limpar">
+        </form>
 
-        <p class="paragrafos"> Roleta Inicial</p>
-        <input class="box" id="n2" type="number">
 
-        <p class="paragrafos">Roleta Final</p>
-        <input class="box" id="n3" type="number"> 
 
-        <p class="paragrafos">Quantidade de VT</p>
-        <input class="box" id="n4" type="number"> <br>
-        
-        <button class="botao" onclick="somar()">Somar</button>
-    <main class="result">  
-        <h3 class="paragrafos-resultado">RESULTADO:</h3>
-        <p class="paragrafos"> Quantidade de passageiros pela roleta: <input class="box" id="resultado" type="number" readonly></p> 
-        <p class="paragrafos"> Quantidade de pass. descontando VT: <input class="box" id="resultadoo" type="number" readonly></p> 
-        <p class="paragrafos"> Valor final de R$: <input class="box" id="resultadooo" type="number" readonly></p> 
-    </main> 
-</body> 
 
     <script>
         function somar() {
@@ -47,6 +48,10 @@
             document.getElementById("resultadoo").value = resultadoo;
             document.getElementById("resultadooo").value = resultadooo;
         }
+
+        function limpar() {
+            document.getElementById("formulario").reset();
+        }    
     </script>
 </html>
 
