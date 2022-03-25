@@ -6,20 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calc</title>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 </head>
 
 <body>
     <h1 id="title">CALCULAR VALORES:</h1>
         <form id="formulario">
             <p class="paragrafos">Valor da Passagem</p>
-                <input class="box" id="n1" type="number" step="0,0">
-            <p class="paragrafos"> Roleta Inicial</p>
+                <input class="box" id="n1" type="text" >  
+            <p class="paragrafos">Roleta Inicial</p>
                 <input class="box" id="n2" type="number">
             <p class="paragrafos">Roleta Final</p>
                 <input class="box" id="n3" type="number"> 
             <p class="paragrafos">Quantidade de VT + Gratuidade</p>
                 <input class="box" id="n4" type="number"> <br>
-            <input type="button"  class="botao" onclick="somar()" value="Somar">
+            <input type="button"  class="botao" onclick='somar()' value="Somar">
 
             <main class="result">  
                 <h3 class="paragrafos-resultado">RESULTADO:</h3>
@@ -30,15 +32,28 @@
             <input type="button" class="botao" onclick="limpar()" value="Limpar">
         </form>
 
-
-
-
     <script>
-        function somar() {
 
-            
 
-            var n1 = Number(document.getElementById("n1").value);
+
+
+        $(document).ready(function() {
+            $("#n1").focus();
+            $('#n1').maskMoney({
+                prefix: 'R$ ',
+                allowNegative: false,
+                thousands: '.',
+                decimal: ','
+            });
+
+            $(".somar").keyup(function() {
+                somar();
+            });
+        });
+
+        function somar() {    
+            var n1 = $("#n1").maskMoney('unmasked')[0];
+            // var n1 = parseInt(document.getElementById("n1").value);      -- Var sem o MaskMoney --
             var n2 = Number(document.getElementById("n2").value);
             var n3 = Number(document.getElementById("n3").value);
             var n4 = Number(document.getElementById("n4").value);
@@ -47,25 +62,20 @@
             var resultadoo = (resultado - n4);
             var resultadooo = (resultadoo * n1).toFixed(2);
 
-            document.getElementById("resultado").value = resultado;
+            document.getElementById("resultado").value = resultado ;
             document.getElementById("resultadoo").value = resultadoo;
             document.getElementById("resultadooo").value = resultadooo;
 
-            
-            
-        }
 
-        if (n2 < n3) {
-                alert("ok")
+
+            if (n3 < n2) {
+                alert("Roleta Final menor que a Roleta inicial");
+                
             }
+        }  
 
         function limpar() {
             document.getElementById("formulario").reset();
         }    
-
-
-
     </script>
 </html>
-
-       
