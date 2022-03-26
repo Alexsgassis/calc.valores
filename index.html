@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calc</title>
+    <meta name="author" content="Alexsandro G Assis">
+    <meta name="Calculadora" content="Área para realização de calculos com facilidade para prestação de conta">
+    <link rel="shortcut icon" type="image/x-icon" href="/css/imagem/logotipo.png">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <title>R$ | Calcular </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 </head>
 
 <body>
-    <h1 id="title">CALCULAR VALORES:</h1>
+    <h1 id="title">CADASTRAR VALORES</h1>
         <form id="formulario">
             <p class="paragrafos">Valor da Passagem</p>
                 <input class="box" id="n1" type="text" >  
@@ -24,21 +27,22 @@
             <input type="button"  class="botao" onclick='somar()' value="Somar">
 
             <main class="result">  
-                <h3 class="paragrafos-resultado">RESULTADO:</h3>
-                <p class="paragrafos"> Quantidade de passageiros pela roleta: <input class="box" id="resultado" type="number" readonly></p> 
-                <p class="paragrafos"> Quantidade descontando VT + Gratuidade : <input class="box" id="resultadoo" type="number" readonly></p> 
-                <p class="paragrafos"> Valor final de R$: <input class="box" id="resultadooo" type="number" readonly></p> 
+                <h3 class="paragrafos-resultado">RESULTADO</h3>
+                <p class="paragrafos"> Quantidade de passageiros pela roleta <input class="box" id="resultRoleta" type="number" readonly></p> 
+                <p class="paragrafos"> Quantidade descontando VT + Gratuidade <input class="box" id="resultVtGt" type="number" readonly></p> 
+                <p class="paragrafos"> Valor final de R$ <input class="box" id="resultValor" type="number" readonly></p> 
             </main> 
             <input type="button" class="botao" onclick="limpar()" value="Limpar">
         </form>
+        <footer class="rodape">
+            Calculos para uso pessoal.
+        </footer>
 
+</body>
     <script>
-
-
-
-
         $(document).ready(function() {
             $("#n1").focus();
+
             $('#n1').maskMoney({
                 prefix: 'R$ ',
                 allowNegative: false,
@@ -52,30 +56,32 @@
         });
 
         function somar() {    
-            var n1 = $("#n1").maskMoney('unmasked')[0];
+
             // var n1 = parseInt(document.getElementById("n1").value);      -- Var sem o MaskMoney --
+            var n1 = $("#n1").maskMoney('unmasked')[0];
             var n2 = Number(document.getElementById("n2").value);
             var n3 = Number(document.getElementById("n3").value);
             var n4 = Number(document.getElementById("n4").value);
 
-            var resultado = (n3 - n2);
-            var resultadoo = (resultado - n4);
-            var resultadooo = (resultadoo * n1).toFixed(2);
+            var resultRoleta = (n3 - n2);
+            var resultVtGt = (resultRoleta - n4);
+            var resultValor = (resultVtGt * n1).toFixed(2);
+            var erro = "";
 
-            document.getElementById("resultado").value = resultado ;
-            document.getElementById("resultadoo").value = resultadoo;
-            document.getElementById("resultadooo").value = resultadooo;
-
-
+            document.getElementById("resultRoleta").value = resultRoleta ;
+            document.getElementById("resultVtGt").value = resultVtGt;
+            document.getElementById("resultValor").value = resultValor;
 
             if (n3 < n2) {
-                alert("Roleta Final menor que a Roleta inicial");
-                
-            }
+                alert("ERRO - Roleta Final menor que a Roleta Inicial!");
+                document.getElementById("resultRoleta").value = erro;
+                document.getElementById("resultVtGt").value = erro;
+                document.getElementById("resultValor").value = erro;   
+            }    
         }  
 
         function limpar() {
-            document.getElementById("formulario").reset();
+            document.getElementById("formulario").reset();   
         }    
     </script>
 </html>
